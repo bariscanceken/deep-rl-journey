@@ -3,8 +3,9 @@ import gymnasium as gym
 import random
 import os
 import pickle as pickle
+import pygame 
 
-env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="rgb_array")
+env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode= "human")
 
 print("_____OBSERVATION SPACE_____ \n")
 print("Observation Space", env.observation_space)
@@ -98,14 +99,6 @@ Qtable_frozenlake = train(n_training_episodes, min_epsilon, max_epsilon, decay_r
 Qtable_frozenlake
 
 def evaluate_agent(env, max_steps, n_eval_episodes, Q, seed):
-  """
-  Evaluate the agent for ``n_eval_episodes`` episodes and returns average reward and std of reward.
-  :param env: The evaluation environment
-  :param max_steps: Maximum number of steps per episode
-  :param n_eval_episodes: Number of episode to evaluate the agent
-  :param Q: The Q-table
-  :param seed: The evaluation seed array (for taxi-v3)
-  """
   episode_rewards = []
   for episode in range(n_eval_episodes):
     if seed:
@@ -148,5 +141,22 @@ def save_q_table(Qtable, filename="q-table-frozenlake.pkl"):
         
     print(f"saved {save_path}")
     return save_path
+
+see_episodes = 3
+env_see = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="human")
+
+for episode in range(see_episodes):
+  state, info = env_see.reset()
+  terminated = False
+  truncated = False
+
+for step in range(max_steps):
+  env_see.render()
+  action = greedy_policy(Qtable_frozenlake, state)
+  new_state, reward, terminated, truncated, info = env_see.step(action)
+  state = new_state
+  if terminated or truncated:
+    break
+print(f"episode {episode + 1} completed. Reward: {reward}")
 
 save_q_table(Qtable_frozenlake)
