@@ -9,3 +9,4 @@ gymnasium
 huggingface-hub
 python-dotenv
 pygame
+opencv-python
