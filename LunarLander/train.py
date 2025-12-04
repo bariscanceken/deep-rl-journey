@@ -8,7 +8,7 @@ env_id = "LunarLander-v3"
 os.makedirs("models", exist_ok=True)
 os.makedirs("logs", exist_ok=True)
 
-env = gym.make(env_id, render_mode=None)
+env = gym.make(env_id, render_mode=)
 
 print("model creating...")
 model = PPO(

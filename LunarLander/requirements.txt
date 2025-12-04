@@ -1,6 +1,0 @@
-swig
-gymnasium[box2d]
-stable-baselines3
-shimmy
-moviepy
-huggingface_sb3
